@@ -124,6 +124,9 @@ public class Game {
             case LOOK -> look();
             case BACK -> back();
             case QUIT -> wantToQuit = quit(command);
+            case PICK_UP -> pickUp();
+            case DROP -> drop(command);
+            case SYNTHESIZE -> synthesize();
             case UNKNOWN -> System.out.println("I don't know what you mean");
         }
 
@@ -216,6 +219,32 @@ public class Game {
             System.out.println("\n*** CONGRATULATIONS, YOU WIN! ***");
         } else {
             System.out.println("The synthesizer rejects your sequence: you are still missing elemental reagents.");
+        }
+    }
+
+    /**
+     * Pick up an item in the room
+     */
+
+    private void pickUp(){
+        if (!currentRoom.getItems().isEmpty()){
+            Item itemToPickUp = currentRoom.getItems().get(0);
+            currentRoom.getItems().remove(itemToPickUp);
+            inventory.add(itemToPickUp);
+            System.out.println("You picked up: " + itemToPickUp.getName());
+        } else {
+            System.out.println("There are no items in this room");
+        }
+    }
+
+    private void drop(Command command){
+        if (command.hasSecondWord()){
+            Item itemToDrop = (Item) inventory.stream().filter(item -> item.getName().equals(command.getSecondWord()));
+            inventory.remove(itemToDrop);
+            currentRoom.addItem(itemToDrop);
+            System.out.println("You dropped the " + itemToDrop.toString());
+        } else {
+            System.out.println("drop what?");
         }
     }
 

@@ -100,4 +100,9 @@ public class Room {
         return items.size() == 5;
     }
 
+    public List<Item> getItems(){
+        return items;
+    }
+
+
 }

@@ -15,6 +15,8 @@ public enum CommandWord{
     HELP("help"),
     LOOK("look"),
     BACK("back"),
+    PICK_UP("pickup"),
+    DROP("drop"),
     SYNTHESIZE("synthesize"),
     UNKNOWN("?");
 
